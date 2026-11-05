@@ -1,0 +1,19 @@
+# 编译产物
+bin/
+obj/
+publish/
+dist/
+
+# .NET / Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# 临时文件
+*.log
+*.tmp
+*.bak
+Thumbs.db
+desktop.ini

@@ -1,0 +1,16 @@
+# 批处理脚本是 GBK + CRLF，必须按二进制原样保存，
+# 否则被换行转换后 cmd 会解析错位
+*.cmd binary
+*.bat binary
+
+# C# / XAML / 配置统一 LF
+*.cs text eol=lf
+*.xaml text eol=lf
+*.csproj text eol=lf
+*.manifest text eol=lf
+*.md text eol=lf
+*.wxs text eol=lf
+*.json text eol=lf
+
+# 图标按二进制处理
+*.ico binary
