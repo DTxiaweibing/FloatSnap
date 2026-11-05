@@ -11,7 +11,7 @@
     <RootNamespace>FloatSnap</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <AssemblyTitle>FloatSnap 截图悬浮按钮</AssemblyTitle>
     <Product>FloatSnap</Product>
     <Company>FloatSnap</Company>

@@ -25,18 +25,18 @@
 
     <Component Id="MainExecutable" Directory="INSTALLFOLDER" Guid="$(var.MainComponentGuid)">
       <File Id="FloatSnapExe" Source="$(var.SourceExe)" KeyPath="yes">
+        <!-- 非通告式快捷方式（Advertise=no）且不指定 Icon：
+             图标直接取目标 exe 内嵌的图标，避免通告式快捷方式图标为空/白纸 -->
         <Shortcut Id="StartMenuShortcut"
                   Directory="AppMenuFolder"
                   Name="FloatSnap"
                   Description="点一下截全屏"
-                  Advertise="yes"
-                  Icon="AppIcon" />
+                  Advertise="no" />
         <Shortcut Id="DesktopShortcut"
                   Directory="DesktopFolder"
                   Name="FloatSnap"
                   Description="点一下截全屏"
-                  Advertise="yes"
-                  Icon="AppIcon" />
+                  Advertise="no" />
       </File>
     </Component>
 
