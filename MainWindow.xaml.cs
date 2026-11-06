@@ -20,11 +20,11 @@ public partial class MainWindow : Window
         Closed += (_, _) => _tray?.Dispose();
     }
 
-    // ---------- 位置：屏幕右上角（距顶 80，让开窗口的 最小化/关闭 按钮）----------
+    // ---------- 位置：屏幕右上角（距顶 180 DIP，让开窗口的 最小化/关闭 按钮）----------
     private void PositionAtTopRight()
     {
         Left = SystemParameters.WorkArea.Right - Width - 16;
-        Top = SystemParameters.WorkArea.Top + 80;
+        Top = SystemParameters.WorkArea.Top + 180;
     }
 
     // ---------- 点击：全屏截图进剪贴板 ----------

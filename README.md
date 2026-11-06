@@ -4,7 +4,7 @@
 
 ## 功能
 
-- 🟢 半透明绿色圆形悬浮按钮，常驻屏幕**右上角**（距顶部 80 像素，不挡窗口的关闭按钮），置顶显示
+- 🟢 半透明绿色圆形悬浮按钮，常驻屏幕**右上角**（距顶部 180 DIP，不挡窗口的关闭按钮），置顶显示
 - 🖱️ 单击按钮 = 全屏截图 → **存为 PNG** 到 `图片\FloatSnap\`（文件名带时间）并放入剪贴板；截图前按钮自动隐藏，不会把自己截进去
 - ✨ 鼠标悬停时透明度加深（0.55 → 0.85），方便点击又不遮挡画面
 - 💬 截图完成后托盘气泡提示文件名与尺寸；失败会提示原因
@@ -38,7 +38,7 @@
 
 ### 只构建单文件 exe（开发调试）
 
-双击 `publish.cmd`，脚本会按当前 CPU 架构自动选择 `win-arm64` / `win-x64`，产物在 `publish\FloatSnap.exe`（依赖系统 .NET 8 Desktop Runtime）。
+双击 `publish.cmd`，脚本会按当前 CPU 架构自动选择 `win-arm64` / `win-x64`，产物在 `publish\FloatSnap.exe`（依赖系统 .NET 9 Desktop Runtime）。
 
 ### 构建安装包（发布用）
 
@@ -61,7 +61,7 @@ dist\
 ### 环境要求
 
 - Windows 10 / Windows 11（x64 或 ARM64）
-- .NET 8 SDK（构建用）：<https://dotnet.microsoft.com/download/dotnet/8.0>
+- .NET 9 SDK（构建用）：<https://dotnet.microsoft.com/download/dotnet/9.0>
 - 首次构建需要能访问 NuGet（下载 WiX）
 
 ## 验证清单
@@ -82,7 +82,7 @@ dist\
 
 ```
 FloatSnap/
-├── FloatSnap.csproj          # 工程文件（net8.0-windows，WPF + WinForms 托盘）
+├── FloatSnap.csproj          # 工程文件（net9.0-windows，WPF + WinForms 托盘）
 ├── app.manifest              # DPI 感知 + 普通用户权限
 ├── App.xaml / App.xaml.cs    # 应用入口，单实例 Mutex
 ├── MainWindow.xaml/.cs       # 透明无边框悬浮按钮窗口 + 点击逻辑
@@ -105,5 +105,5 @@ FloatSnap/
 - **怎么彻底卸载？** 设置 → 应用 → FloatSnap → 卸载；或命令行 `msiexec /x FloatSnap_Setup_*.msi`。
 - **点了没反应？** 看托盘气泡提示。若提示"剪贴板被其他程序占用"，图其实已经保存到 `图片\FloatSnap` 了；若程序已退出，从开始菜单重新打开。
 - **截图里有鼠标指针？** 当前版本不包含鼠标指针，这是正常现象。
-- **按钮位置不对？** 程序按主屏工作区（去掉任务栏）定位：距右 16、距顶 80。想再往下挪，修改 `MainWindow.xaml.cs` 中 `PositionAtTopRight()` 里的 `80`。
+- **按钮位置不对？** 程序按主屏工作区（去掉任务栏）定位：距右 16、距顶 180。想再往下挪，修改 `MainWindow.xaml.cs` 中 `PositionAtTopRight()` 里的 `180`。
 - **想只截一块区域？** 当前版本不做框选，点一下就是整屏；需要框选可以再加。

@@ -3,7 +3,7 @@ chcp 936 >nul
 title FloatSnap 打包（ARM64 + x64）
 cd /d "%~dp0"
 
-set "VERSION=1.0.1"
+set "VERSION=1.0.2"
 set "ARM64_UPGRADE={B1F5E3A2-6C1D-4B7E-9A51-2F0D8C3E7A61}"
 set "X64_UPGRADE={C2A6F4B3-7D2E-4C8F-8B62-3A1E9D4F8B72}"
 set "ARM64_MAIN={D3B7A5C4-8E3F-4D90-9C73-4B2F0E5A9C83}"
@@ -18,7 +18,7 @@ echo.
 
 where dotnet >nul 2>&1
 if errorlevel 1 (
-    echo [错误] 找不到 dotnet，请先安装 .NET 8 SDK。
+    echo [错误] 找不到 dotnet，请先安装 .NET 9 SDK。
     pause
     exit /b 1
 )
@@ -34,6 +34,8 @@ if errorlevel 1 (
 echo.
 echo [2/4] 关闭正在运行的 FloatSnap 并清理 dist ...
 taskkill /f /im FloatSnap.exe >nul 2>&1
+taskkill /f /im FloatSnap_arm64.exe >nul 2>&1
+taskkill /f /im FloatSnap_x64.exe >nul 2>&1
 if exist dist rmdir /s /q dist
 mkdir dist
 
@@ -71,6 +73,10 @@ echo   正在发布 win-%1 ...
 dotnet publish -c Release -r win-%1 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:DebugSymbols=false -o "dist\%1"
 if errorlevel 1 exit /b 1
 copy /y "dist\%1\FloatSnap.exe" "dist\FloatSnap_%1.exe" >nul
+if errorlevel 1 (
+    echo   [错误] 复制 FloatSnap_%1.exe 失败：文件可能正在运行，请先退出后再打包。
+    exit /b 1
+)
 exit /b 0
 
 :fail

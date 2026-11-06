@@ -27,7 +27,7 @@ if errorlevel 1 (
     echo [错误] 系统找不到 dotnet 命令。
     echo 可能原因：安装的是 ".NET Runtime" 而不是 ".NET SDK"，
     echo 或者安装后没有重启电脑/终端。
-    echo 请到 https://dotnet.microsoft.com/download/dotnet/8.0 下载 64 位 SDK。
+    echo 请到 https://dotnet.microsoft.com/download/dotnet/9.0 下载 64 位 SDK。
     echo.
     pause
     exit /b 1

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -11,13 +11,15 @@
     <RootNamespace>FloatSnap</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AssemblyTitle>FloatSnap 截图悬浮按钮</AssemblyTitle>
     <Product>FloatSnap</Product>
     <Company>FloatSnap</Company>
     <Description>点一下截全屏，自动存图并复制到剪贴板</Description>
     <!-- WPF 应用 + WinForms 托盘会触发 WinForms 的 DPI 建议告警，DPI 已由 app.manifest 配置 -->
-    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+    <!-- WFO0003：.NET 9 起 WinForms 分析器建议改用 ApplicationHighDpiMode；本项目 UI 是 WPF，
+         只借用 WinForms 的 NotifyIcon，DPI 仍应由 app.manifest（PerMonitorV2）负责，故忽略 -->
+    <NoWarn>$(NoWarn);WFAC010;WFO0003</NoWarn>
   </PropertyGroup>
 
 </Project>
