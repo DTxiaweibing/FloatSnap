@@ -9,11 +9,12 @@
         Topmost="True"
         ShowInTaskbar="False"
         ShowActivated="False"
+        Focusable="False"
         ResizeMode="NoResize"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave">
-    <Grid>
+    <Grid x:Name="Root">
         <!-- 半透明圆形按钮 -->
         <Ellipse x:Name="BtnCircle" Fill="#8C1F6B30" Stroke="#66FFFFFF" StrokeThickness="1"
                  MouseLeftButtonDown="Btn_Click" Cursor="Hand"/>
