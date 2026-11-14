@@ -9,11 +9,15 @@
 - ✨ 鼠标悬停时透明度加深（0.55 → 0.85），方便点击又不遮挡画面
 - 🖐️ **点击不抢焦点**：窗口带 `WS_EX_NOACTIVATE`，点按钮时前台窗口始终还是你原来的窗口，终端 / 浏览器不会失焦，Windows 也就不会因为「焦点重新进入输入区域」弹出屏幕软键盘
 - 💬 截图完成后托盘气泡提示文件名与尺寸；失败会提示原因
+- 🛡️ **启动自检**：如果误运行了比已安装版本更旧的 exe，会提示「本文件是旧版」并引导去下载最新版，不会静默跑旧代码
 - 📌 托盘图标：右键菜单可开关**开机自启动**、**打开截图文件夹**、**退出**
 - 🔒 单实例运行，重复启动会提示
 - 🚀 自包含单文件，**目标机器不需要安装 .NET 运行时**
 
 ## 安装（推荐）
+
+已发布的版本在 **Gitee**（国内直连，推荐）：<https://gitee.com/xia-guard/FloatSnap/releases/latest>，
+GitHub 备份：<https://github.com/DTxiaweibing/FloatSnap/releases/latest>（国内访问可能需要加速）。
 
 `dist\` 里有两个安装包，按电脑架构选一个：
 
@@ -45,9 +49,10 @@
 
 双击 `build-installer.cmd`，一条命令完成：
 
-1. `dotnet tool restore` 还原 WiX（工具版本写在 `.config/dotnet-tools.json`，不污染全局环境）
-2. 分别发布 `win-arm64` / `win-x64` 自包含单文件 exe
-3. 生成两个 MSI
+1. **检查版本号**：新版本号必须大于本机已安装的版本，否则直接报错退出（MSI 的 `MajorUpgrade` 会拒绝降级，装了也是白装）。版本号在 `FloatSnap.csproj` 的 `<Version>` 和 `build-installer.cmd` 的 `set "VERSION="` 两处，要一起改
+2. `dotnet tool restore` 还原 WiX（工具版本写在 `.config/dotnet-tools.json`，不污染全局环境）
+3. 分别发布 `win-arm64` / `win-x64` 自包含单文件 exe
+4. 生成两个 MSI
 
 产物全部在 `dist\`：
 
@@ -89,6 +94,7 @@ FloatSnap/
 ├── MainWindow.xaml/.cs       # 透明无边框悬浮按钮窗口 + 点击逻辑
 ├── NoActivateBehavior.cs     # 让窗口永不激活（不抢前台焦点，避免终端弹软键盘）
 ├── TouchKeyboardGuard.cs     # 兜底：万一软键盘还是冒出来，新出现的才收起
+├── VersionGuard.cs           # 启动自检：本文件比已安装版本旧时提示
 ├── NativeMethods.cs          # 用到的 Win32 API 声明
 ├── ScreenCapture.cs          # 全屏截图 + 存图（图片\FloatSnap）+ 写入剪贴板（带重试）
 ├── AutoStart.cs              # HKCU Run 注册表自启动开关
@@ -110,5 +116,6 @@ FloatSnap/
 - **点了没反应？** 看托盘气泡提示。若提示"剪贴板被其他程序占用"，图其实已经保存到 `图片\FloatSnap` 了；若程序已退出，从开始菜单重新打开。
 - **截图里有鼠标指针？** 当前版本不包含鼠标指针，这是正常现象。
 - **在终端里点截图，会弹出系统软键盘？** 1.0.3 已修。原因是点按钮时窗口抢了前台焦点，终端随之失去/重获焦点，Windows 就把屏幕键盘顶上来了（浏览器因为 Chromium 自己会压掉，所以不明显）。现在窗口带 `WS_EX_NOACTIVATE`，点按钮完全不改变前台窗口，焦点不跳就不会有键盘；另有一层兜底：若键盘是这次点击新冒出来的，会自动收起（你自己开的键盘不受影响）。
+- **只想装最新版，怕点错旧安装包？** 旧版本已从所有 Release 和仓库 tag 中删除。另外 MSI 本身会拒绝降级（`1638`：已安装更新版本），唯一的漏洞是免安装 exe 不做版本检查——1.0.4 起程序启动时会自检，比已安装版本旧就提示并引导下载最新版。
 - **按钮位置不对？** 程序按主屏工作区（去掉任务栏）定位：距右 16、距顶 180。想再往下挪，修改 `MainWindow.xaml.cs` 中 `PositionAtTopRight()` 里的 `180`。
 - **想只截一块区域？** 当前版本不做框选，点一下就是整屏；需要框选可以再加。

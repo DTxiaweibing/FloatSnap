@@ -3,7 +3,7 @@ chcp 936 >nul
 title FloatSnap 打包（ARM64 + x64）
 cd /d "%~dp0"
 
-set "VERSION=1.0.3"
+set "VERSION=1.0.4"
 set "ARM64_UPGRADE={B1F5E3A2-6C1D-4B7E-9A51-2F0D8C3E7A61}"
 set "X64_UPGRADE={C2A6F4B3-7D2E-4C8F-8B62-3A1E9D4F8B72}"
 set "ARM64_MAIN={D3B7A5C4-8E3F-4D90-9C73-4B2F0E5A9C83}"
@@ -19,6 +19,16 @@ echo.
 where dotnet >nul 2>&1
 if errorlevel 1 (
     echo [错误] 找不到 dotnet，请先安装 .NET 9 SDK。
+    pause
+    exit /b 1
+)
+
+echo [0/4] 检查版本号必须大于已安装版本 ...
+powershell -NoProfile -ExecutionPolicy Bypass -File "tools\check-installed-version.ps1" -NewVersion %VERSION%
+if errorlevel 1 (
+    echo.
+    echo [错误] 版本号 %VERSION% 没有大于本机已安装的版本。
+    echo        MSI 会拒绝降级安装（错误 1638），请把 FloatSnap.csproj 与 build-installer.cmd 里的版本号一起调高。
     pause
     exit /b 1
 )

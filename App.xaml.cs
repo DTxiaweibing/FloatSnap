@@ -24,6 +24,9 @@ public partial class App : Application
 
         base.OnStartup(e);
 
+        // 兜底：如果这份 exe 比系统里装的版本旧（典型场景是误点了残留的旧免安装 exe），先提示
+        VersionGuard.WarnIfOlderThanInstalled();
+
         var window = new MainWindow();
         window.Show();
     }
