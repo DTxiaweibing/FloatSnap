@@ -12,12 +12,14 @@
         Focusable="False"
         ResizeMode="NoResize"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseLeftButtonUp="Window_MouseLeftButtonUp"
+        MouseMove="Window_MouseMove"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave">
     <Grid x:Name="Root">
-        <!-- 半透明圆形按钮 -->
+        <!-- 半透明圆形按钮：按下不动 = 截图，按住移动 = 拖动 -->
         <Ellipse x:Name="BtnCircle" Fill="#8C1F6B30" Stroke="#66FFFFFF" StrokeThickness="1"
-                 MouseLeftButtonDown="Btn_Click" Cursor="Hand"/>
+                 Cursor="Hand"/>
         <TextBlock Text="✂" FontSize="22" Foreground="#CCFFFFFF"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    IsHitTestVisible="False"/>

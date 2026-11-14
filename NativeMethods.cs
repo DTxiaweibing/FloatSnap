@@ -23,6 +23,17 @@ internal static class NativeMethods
     // ---------- 进程查询 ----------
     public const uint PROCESS_QUERY_LIMITED_INFORMATION = 0x1000;
 
+    // ---------- 鼠标位置（物理像素，不受 DPI 虚拟化影响） ----------
+    [StructLayout(LayoutKind.Sequential)]
+    public struct POINT
+    {
+        public int X;
+        public int Y;
+    }
+
+    [DllImport("user32.dll")]
+    public static extern bool GetCursorPos(out POINT lpPoint);
+
     [DllImport("user32.dll", EntryPoint = "GetWindowLongPtrW", SetLastError = true)]
     public static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
 
