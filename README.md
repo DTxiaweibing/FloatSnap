@@ -17,8 +17,11 @@
 
 ## 安装（推荐）
 
-已发布的版本在 **Gitee**（国内直连，推荐）：<https://gitee.com/xia-guard/FloatSnap/releases/latest>，
-GitHub 备份：<https://github.com/DTxiaweibing/FloatSnap/releases/latest>（国内访问可能需要加速）。
+已发布的版本在 **Gitee**（国内直连，推荐）：<https://gitee.com/xia-guard/FloatSnap/releases/latest>
+
+**GitHub 备份**：<https://github.com/DTxiaweibing/FloatSnap/releases/latest>
+国内直连 GitHub 往往很慢甚至打不开，可以在地址前加 `https://gh-proxy.com/` 走加速镜像，例如：
+<https://gh-proxy.com/https://github.com/DTxiaweibing/FloatSnap/releases/download/v1.0.5/FloatSnap_arm64.exe>
 
 `dist\` 里有两个安装包，按电脑架构选一个：
 
